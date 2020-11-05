@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClK7LmRaYiK98KD8eWvOR4o4Bu7fU3-us&callback=initMap&libraries=&v=weekly"
+      defer
+    ></script>
+    <style type="text/css">
+      
+      #map {
+        height: 100%;
+      }
+
+      .button {
+        position:fixed;
+        width: 70px;
+        height: 70px;
+        text-align: center;
+        border:2px solid blue;
+      }
+
+      .marker {
+        top:100px;
+        right:160px;
+      }
+
+      .center {
+        top:100px;
+        right:60px;
+      }
+
+      .textField {
+        position:fixed;
+        text-align: center;
+      }
+
+      .latField {
+        top:200px;
+        right:40px;
+      }
+
+      .longField {
+        top:260px;
+        right:40px;
+      }
+
+      .link{
+        top:300px;
+        right:50px;
+      }
+      /* Optional: Makes the sample page fill a certain amount of window. */
+      html,
+      body {
+        height: 100%;
+        width: 90%;
+        margin: 0;
+        padding: 0;
+      }
+
+
+    </style>
+    <script>
+      var map;
+
+      function initMap() {
+        var pos = new google.maps.LatLng(-25.363882,131.044922);
+        var mapOptions = {
+        zoom: 4,
+        center: pos
+        }
+
+        map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+        var marker = new google.maps.Marker({
+        position: pos,
+        title:"You are here!"
+        });
+
+        // To add the marker to the map, call setMap();
+        marker.setMap(map);
+      }
+    </script>
+  </head>
+  <body>
+
+    <button class = "button center" onclick="setCenter(getPos())">Center</button>
+    <button class = "button marker" onclick="newMarker()">Add Marker</button>
+    
+    <div class = "textField latField">
+      <label>Latitude:
+        <input type="text" name = "lat" id ="lat" value = ""/>
+      </label>
+    </div>
+
+    <div class = "textField longField">
+      <label for = "long">Longitude:</label>
+      <input type="text" name ="long" id ="long" value = ""/>
+    </div>
+
+    <div class = "link">
+      <a href="http:test.shak.today">Calculator App</a>
+    </div>
+
+    <div id="map"></div>
+
+    <script>
+      function setCenter(position)
+      {
+        map.setCenter(position);
+      }
+      function getPos()
+      {
+        var lat = document.getElementById("lat").value;
+        var long = document.getElementById("long").value;
+       //document.getElementById("demo").innerHTML = lat + ' ' + long;
+        // if null center around current 
+        //<button class="button marker">Add Marker</button>
+
+        return new google.maps.LatLng(lat,long);
+      }
+      function newMarker()
+      {
+        //add 
+        var pos = getPos();
+        var marker = new google.maps.Marker({
+        position: pos,
+        title:"You are here!"
+        });
+        //center 
+        map.setCenter(pos);
+        marker.setMap(map);
+      }
+    </script>
+  </body>
+</html>
